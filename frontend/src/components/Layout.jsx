@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { FiChevronDown, FiChevronRight, FiCpu, FiSettings, FiHome, FiUser, FiRadio } from 'react-icons/fi';
+import { FiChevronDown, FiChevronRight, FiCpu, FiSettings, FiHome, FiUser, FiRadio, FiFileText } from 'react-icons/fi';
 import { MdForklift } from 'react-icons/md';
 
 export default function Layout({ children }) {
@@ -13,19 +13,22 @@ export default function Layout({ children }) {
     deviceStatus: false,
   });
 
+	  // Auto-collapse all menus when route changes
+  	useEffect(() => {
+  	  setExpanded({
+  	    personal: false,
+  	    antenna: false,
+  	    forklift: false,
+  	    deviceStatus: false,
+  	  });
+  	}, [location.pathname]);
+
   const [devices] = useState([
     { name: 'Personal Device 01', status: 'offline' },
     { name: 'Personal Device 02', status: 'offline' },
     { name: 'Antenna Device 01', status: 'online' },
     { name: 'Forklift Device 01', status: 'offline' },
   ]);
-
-  useEffect(() => {
-    setExpanded((prev) => ({
-      ...prev,
-      deviceStatus: false,
-    }));
-  }, [location.pathname]);
 
   const toggleSection = (section) => {
     setExpanded((prev) => ({ ...prev, [section]: !prev[section] }));
@@ -38,8 +41,9 @@ export default function Layout({ children }) {
   return (
     <div className="d-flex min-vh-100">
       <div className="bg-dark text-white p-3" style={{ width: "250px" }}>
-        <h4 className="mb-4 text-center">UWB Dashboard</h4>
+        <h4 className="mb-4 text-center">Volly Forklift</h4>
         <ul className="nav flex-column">
+          {/* Dashboard */}
           <li className="nav-item mb-2">
             <Link
               to="/"
@@ -51,17 +55,31 @@ export default function Layout({ children }) {
             </Link>
           </li>
 
+          {/* Device Status */}
           <li className="nav-item mb-2">
-            <div
-              className="nav-link d-flex align-items-center justify-between text-white rounded px-3 py-2 hover-modern cursor-pointer"
-              onClick={() => toggleSection('deviceStatus')}
-            >
-              <span><FiCpu className="me-2" />Device Status</span>
-              {expanded.deviceStatus ? <FiChevronDown /> : <FiChevronRight />}
+            <div className="d-flex align-items-center justify-between text-white rounded px-3 py-2 hover-modern">
+              {/* Left: Clickable link */}
+              <Link
+                to="/device-status"
+                className="text-white text-decoration-none d-flex align-items-center"
+                style={{ flex: 1 }}
+              >
+                <FiCpu className="me-2" /> Device Status
+              </Link>
+
+              {/* Right: Toggle icon */}
+              <div
+                onClick={() => toggleSection('deviceStatus')}
+                className="cursor-pointer"
+              >
+                {expanded.deviceStatus ? <FiChevronDown /> : <FiChevronRight />}
+              </div>
             </div>
 
+            {/* Submenu */}
             {expanded.deviceStatus && (
               <ul className="ps-3 mt-2 small text-white-50">
+                {/* Personal Devices */}
                 <li className="mb-2">
                   <div
                     className="d-flex justify-between align-items-center cursor-pointer hover-modern px-2 py-1 rounded"
@@ -75,7 +93,7 @@ export default function Layout({ children }) {
                       {devices.filter(d => d.name.includes('Personal')).map((device, i) => (
                         <li key={`p${i}`} className="mb-1">
                           <Link
-                            to={`/devices/personal/${i + 1}`}
+                            to={`/device-status/personal/${i + 1}`}
                             className="text-white d-flex align-items-center gap-2 px-2 py-1 rounded hover-modern"
                           >
                             <FiUser size={16} /> {device.name}
@@ -90,6 +108,7 @@ export default function Layout({ children }) {
                   )}
                 </li>
 
+                {/* Antenna */}
                 <li className="mb-2">
                   <div
                     className="d-flex justify-between align-items-center cursor-pointer hover-modern px-2 py-1 rounded"
@@ -103,7 +122,7 @@ export default function Layout({ children }) {
                       {devices.filter(d => d.name.includes('Antenna')).map((device, i) => (
                         <li key={`a${i}`} className="mb-1">
                           <Link
-                            to={`/devices/antenna/${i + 1}`}
+                            to={`/device-status/antenna/${i + 1}`}
                             className="text-white d-flex align-items-center gap-2 px-2 py-1 rounded hover-modern"
                           >
                             <FiRadio size={16} /> {device.name}
@@ -118,6 +137,7 @@ export default function Layout({ children }) {
                   )}
                 </li>
 
+                {/* Forklifts */}
                 <li className="mb-2">
                   <div
                     className="d-flex justify-between align-items-center cursor-pointer hover-modern px-2 py-1 rounded"
@@ -131,7 +151,7 @@ export default function Layout({ children }) {
                       {devices.filter(d => d.name.includes('Forklift')).map((device, i) => (
                         <li key={`f${i}`} className="mb-1">
                           <Link
-                            to={`/devices/forklift/${i + 1}`}
+                            to={`/device-status/forklift/${i + 1}`}
                             className="text-white d-flex align-items-center gap-2 px-2 py-1 rounded hover-modern"
                           >
                             <MdForklift size={16} /> {device.name}
@@ -149,6 +169,17 @@ export default function Layout({ children }) {
             )}
           </li>
 
+					{/* Logs */}
+    			<li className="mb-2">
+      			<Link
+							to="/device-status/logs"
+       				className="text-white d-flex align-items-center gap-2 px-3 py-2 rounded hover-modern"
+      			>
+        			<FiFileText size={16} /> Logs
+      			</Link>
+    			</li>
+          
+					{/* Settings */}
           <li className="nav-item mb-2">
             <Link
               to="/settings"
@@ -161,7 +192,10 @@ export default function Layout({ children }) {
           </li>
         </ul>
       </div>
-      <div className="p-4 flex-grow-1">{children}</div>
+
+      <div className="p-4 flex-grow-1">
+        {children}
+      </div>
     </div>
   );
 }

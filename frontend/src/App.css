@@ -1,5 +1,3 @@
-/* Core global styles (you can expand this as needed) */
-
 body {
   margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -8,6 +6,12 @@ body {
 
 .card {
   border-radius: 0.75rem;
+}
+
+
+.list-log-item:hover {
+  background-color: #f8f9fa;
+  transition: background-color 0.2s;
 }
 
 .hover-modern {

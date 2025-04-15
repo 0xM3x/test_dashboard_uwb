@@ -86,7 +86,7 @@ export default function Dashboard() {
             {newDevices.map((device) => (
               <div
                 key={device.id}
-                className="card d-flex flex-row align-items-center gap-3 p-2 mb-2 shadow-sm rounded-3"
+                className="card d-flex flex-row align-items-center gap-3 p-2 mb-2 shadow-sm rounded-3 list-log-item"
                 style={{ cursor: 'pointer' }}
                 onClick={() => navigate(`/devices/${device.id}`)}
               >
@@ -108,25 +108,25 @@ export default function Dashboard() {
         </div>
       </div>
 
-      <div className="card shadow rounded-3 p-3">
-        <h6 className="mb-3">Recent Logs</h6>
-        <div className="d-flex flex-wrap justify-content-center gap-3 overflow-auto">
-          {logs.map((log) => (
-            <div
-              key={log.id}
-              className="card p-3 shadow-sm rounded-3"
-              style={{ flex: '0 0 auto', width: '250px', cursor: 'pointer' }}
-              onClick={() => navigate(`/logs/${log.id}`)}
-            >
-              <div className="fw-bold">{log.device}</div>
-              <div className="text-muted small">{log.message}</div>
-              <div className="text-end text-muted" style={{ fontSize: '0.8rem' }}>
-                {log.time}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+  		<div className="card shadow rounded-3 p-3">
+  			<h6 className="mb-3">Recent Logs</h6>
+  			<ul className="list-group list-group-flush">
+  				{logs.map((log) => (
+  					<li
+  						key={log.id}
+  						className="list-group-item d-flex justify-content-between align-items-start list-log-item"
+  						style={{ cursor: 'pointer' }}
+  						onClick={() => navigate("/device-status/logs")}
+  					>
+  						<div>
+  							<div className="fw-bold">{log.device}</div>
+  							<div className="text-muted small">{log.message}</div>
+  						</div>
+  						<div className="text-muted small text-end">{log.time}</div>
+  					</li>
+  			  ))}
+  		  </ul>
+  	  </div>
     </div>
   );
 }
