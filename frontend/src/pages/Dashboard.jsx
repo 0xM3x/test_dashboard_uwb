@@ -88,7 +88,7 @@ export default function Dashboard() {
                 key={device.id}
                 className="card d-flex flex-row align-items-center gap-3 p-2 mb-2 shadow-sm rounded-3 list-log-item"
                 style={{ cursor: 'pointer' }}
-                onClick={() => navigate(`/devices/${device.id}`)}
+                onClick={() => navigate(`/device-status/${device.type}/${device.id}`)}
               >
                 {device.type === 'Personal' && <FiUser size={24} />}
                 {device.type === 'Forklift' && <MdForklift size={24} />}
