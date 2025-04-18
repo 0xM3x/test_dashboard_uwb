@@ -5,6 +5,7 @@ import DeviceStatus from './pages/DeviceStatus';
 import Settings from './pages/Settings';
 import Logs from './pages/Logs';
 import DevicePage from './pages/DevicePage';
+import ProfilePage from './pages/ProfilePage';
 
 function App() {
   return (
@@ -12,9 +13,10 @@ function App() {
         <Routes>
 		      <Route path="/" element={<Dashboard />} />
           <Route path="/device-status" element={<DeviceStatus />} />
-					<Route path="/device-status/logs" element={<Logs />} />
+					<Route path="/settings/logs" element={<Logs />} />
 					<Route path="/device-status/:type/:id" element={<DevicePage />} />
           <Route path="/settings" element={<Settings />} />
+					<Route path="/profile" element={<ProfilePage />} />
         </Routes>
 		</Sidebar>
   );

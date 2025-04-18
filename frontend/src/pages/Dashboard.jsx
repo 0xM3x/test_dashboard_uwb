@@ -25,7 +25,7 @@ export default function Dashboard() {
   const [newDevices] = useState([
     { id: 'p01', type: 'Personal', status: 'online' },
     { id: 'f01', type: 'Forklift', status: 'offline' },
-    { id: 'a01', type: 'Wall', status: 'online' },
+    { id: 'a01', type: 'Antenna', status: 'online' },
   ]);
 
   const activityData = [
@@ -88,7 +88,7 @@ export default function Dashboard() {
                 key={device.id}
                 className="card d-flex flex-row align-items-center gap-3 p-2 mb-2 shadow-sm rounded-3 list-log-item"
                 style={{ cursor: 'pointer' }}
-                onClick={() => navigate(`/device-status/${device.type}/${device.id}`)}
+                onClick={() => navigate(`/device-status/${device.type.toLowerCase()}/${device.id}`)}
               >
                 {device.type === 'Personal' && <FiUser size={24} />}
                 {device.type === 'Forklift' && <MdForklift size={24} />}
@@ -116,7 +116,7 @@ export default function Dashboard() {
   						key={log.id}
   						className="list-group-item d-flex justify-content-between align-items-start list-log-item"
   						style={{ cursor: 'pointer' }}
-  						onClick={() => navigate("/device-status/logs")}
+  						onClick={() => navigate("/settings/logs")}
   					>
   						<div>
   							<div className="fw-bold">{log.device}</div>
