@@ -6,6 +6,7 @@ import Settings from './pages/Settings';
 import Logs from './pages/Logs';
 import DevicePage from './pages/DevicePage';
 import ProfilePage from './pages/ProfilePage';
+import ClientManagement from './pages/ClientManagement';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
 					<Route path="/device-status/:type/:id" element={<DevicePage />} />
           <Route path="/settings" element={<Settings />} />
 					<Route path="/profile" element={<ProfilePage />} />
+					<Route path="/settings/users" element={<ClientManagement />} />
         </Routes>
 		</Sidebar>
   );

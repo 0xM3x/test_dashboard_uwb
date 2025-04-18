@@ -1,4 +1,3 @@
-// src/components/DeviceIcon.jsx
 import React from "react";
 import { FaBroadcastTower, FaUser } from "react-icons/fa";
 import { MdForklift } from 'react-icons/md';

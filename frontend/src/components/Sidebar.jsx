@@ -253,12 +253,7 @@ export default function Sidebar({ children }) {
                   </li>
                   <li className="mb-2">
                     <Link to="/settings/users" className="text-white d-flex align-items-center gap-2 hover-modern px-2 py-1 rounded">
-                      <FiUsers size={16} /> User Management
-                    </Link>
-                  </li>
-                  <li className="mb-2">
-                    <Link to="/settings/add-client" className="text-white d-flex align-items-center gap-2 hover-modern px-2 py-1 rounded">
-                      <FiUserPlus size={16} /> Add Client
+                      <FiUsers size={16} /> Clients & Users 
                     </Link>
                   </li>
                 </ul>
