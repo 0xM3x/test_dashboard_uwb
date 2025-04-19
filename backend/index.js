@@ -4,11 +4,14 @@ require('dotenv').config();
 
 const pool = require('./config/db');
 const clientRoutes = require('./routes/clientRoutes');
+const deviceRoutes = require('./routes/deviceRoutes');
 
 app.use(express.json());
 
 
 app.use('/api/clients', clientRoutes);
+app.use('/api/devices', deviceRoutes);
+
 
 
 app.get('/api/health', async (req, res) => {
