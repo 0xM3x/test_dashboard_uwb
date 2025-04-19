@@ -3,8 +3,13 @@ const app = express();
 require('dotenv').config();
 
 const pool = require('./config/db');
+const clientRoutes = require('./routes/clientRoutes');
 
 app.use(express.json());
+
+
+app.use('/api/clients', clientRoutes);
+
 
 app.get('/api/health', async (req, res) => {
   try {
