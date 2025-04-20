@@ -60,3 +60,29 @@ exports.registerDevice = async (req, res) => {
   }
 };
 
+
+exports.renameDevice = async (req, res) => {
+  const { device_id } = req.params;
+  const { name } = req.body;
+
+  if (!name) {
+    return res.status(400).json({ error: 'Device name is required' });
+  }
+
+  try {
+    const result = await pool.query(
+      'UPDATE devices SET name = $1 WHERE device_id = $2 RETURNING *',
+      [name, device_id]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: 'Device not found' });
+    }
+
+    res.json({ success: true, device: result.rows[0] });
+  } catch (err) {
+    console.error('Rename Device Error:', err);
+    res.status(500).json({ error: 'Failed to rename device' });
+  }
+};
+
