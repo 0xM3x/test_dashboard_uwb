@@ -6,6 +6,8 @@ const pool = require('./config/db');
 const clientRoutes = require('./routes/clientRoutes');
 const deviceRoutes = require('./routes/deviceRoutes');
 const logRoutes = require('./routes/logRoutes');
+const authRoutes = require('./routes/authRoutes');
+
 
 app.use(express.json());
 
@@ -13,6 +15,8 @@ app.use(express.json());
 app.use('/api/clients', clientRoutes);
 app.use('/api/devices', deviceRoutes);
 app.use('/api/logs', logRoutes);
+app.use('/api/auth', authRoutes);
+
 
 
 
