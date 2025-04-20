@@ -5,12 +5,15 @@ require('dotenv').config();
 const pool = require('./config/db');
 const clientRoutes = require('./routes/clientRoutes');
 const deviceRoutes = require('./routes/deviceRoutes');
+const logRoutes = require('./routes/logRoutes');
 
 app.use(express.json());
 
 
 app.use('/api/clients', clientRoutes);
 app.use('/api/devices', deviceRoutes);
+app.use('/api/logs', logRoutes);
+
 
 
 
